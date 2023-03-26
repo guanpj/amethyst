@@ -10,8 +10,11 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+        with: 
+          token: ${{ secrets.TOKEN }}
+          submodules: 'true'
+      - name: Checkout submodules
+        run: git submodule update --init --recursive
 
       - name: Build Link Index
         uses: jackyzha0/hugo-obsidian@v2.18

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>JVM on</title><link>https://guanpj.github.io/amethyst/tags/JVM/</link><description>Recent content in JVM on</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://guanpj.github.io/amethyst/tags/JVM/index.xml" rel="self" type="application/rss+xml"/><item><title>JVM 中的对象和垃圾回收</title><link>https://guanpj.github.io/amethyst/Knowledge/Java/%E8%99%9A%E6%8B%9F%E6%9C%BA/JVM-%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%92%8C%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://guanpj.github.io/amethyst/Knowledge/Java/%E8%99%9A%E6%8B%9F%E6%9C%BA/JVM-%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%92%8C%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/</guid><description>虚拟机中的对象 # 了解了 JVM 运行时数据区域之后，大致明白了 JVM 内存模型的概况，对内存中的存放内容也有了初步了解。更进一步地，如果要了解内存中的数据的创建过程、在内存中如何布局、以及访问方式等，就必须要把范围限定到具体的虚拟机类型和集中在某一个内存区域上才有意义。下面以最常用的 HotSpot 虚拟机和最常用的内存区域 Java 堆为例，深入探索对象分配、布局和访问过程。
+对象的创建 # 虚拟机遇到一条 new 指令时，首先检查是否被类加载器加载，如果没有，则必须先执行相应的类加载过程。类加载就是把 class 加载到 JVM 的运行时数据区的过程。
+1、检查加载 # 首先检查这个指令的参数是否能在常量池中定位到一个类的符号引用（以一组符号来描述所引用的目标），并且检查类是否已经被加载、解析和初始化过。
+2、分配内存 # 如果上一步检查加载成功，接下来虚拟机将为新生对象分配内存。为对象分配空间的任务等同于把一块确定大小的内存从 Java 堆中划分出来。
+分配内存主要有两种方式
+指针碰撞 # 如果 Java 堆中内存是绝对规整的，所有用过的内存都放在一边，空闲的内存放在另一边，中间放着一个指针作为分界点的指示器，那所分配内存就仅仅是把那个指针向空闲空间那边挪动一段与对象大小相等的距离，这种分配方式称为“指针碰撞”。
+空闲列表 # 如果 Java 堆中的内存并不是规整的，已使用的内存和空闲的内存相互交错，那就没有办法简单地进行指针碰撞了，虚拟机就必须维护一个列表，记录上哪些内存块是可用的，在分配的时候从列表中找到一块足够大的空间划分给对象实例，并更新列表上的记录，这种分配方式称为“空闲列表”。
+选择哪种分配方式由 Java 堆是否规整决定，而 Java 堆是否规整又由所采用的垃圾收集器是否带有压缩整理功能决定。
+如果是 Serial、ParNew 等带有压缩的整理的垃圾回收器的话，系统采用的是指针碰撞的方式，既简单又高效。
+如果是使用 CMS 这种不带压缩（整理）的垃圾回收器的话，理论上只能采用较复杂的空闲列表。
+内存分配的并发安全问题 # 除如何划分可用空间之外，还有另外一个需要考虑的问题是：对象创建在虚拟机中是非常频繁的行为，即使是仅仅修改一个指针所指向的位置，在并发情况下也并不是线程安全的。
+解决方案有以下两种：
+CAS 机制
+对分配内存空间的动作进行同步处理，虚拟机采用 CAS 配上失败重试的方式保证更新操作的原子性。虽然这种方式解决了并发问题，但是我们不难发现，这种方式增加了复杂度，降低了内存的分配的功效性。</description></item><item><title>JVM 内存区域</title><link>https://guanpj.github.io/amethyst/Knowledge/Java/%E8%99%9A%E6%8B%9F%E6%9C%BA/JVM-%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://guanpj.github.io/amethyst/Knowledge/Java/%E8%99%9A%E6%8B%9F%E6%9C%BA/JVM-%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/</guid><description>简介 # 什么是 JVM？ # Java 虚拟机（Java Virtual Machine，简称 JVM），它能识别 .class 后缀的字节码文件（Java bytecode），并且能够解析它的指令，最终调用操作系统上的函数以完成指定操作。
+为什么需要 JVM？ # Java 程序使用 javac 编译成 .class 文件之后，还需要使用 Java 命令去主动执行它，操作系统并不认识这些 .class 文件，JVM 则充当了翻译官的角色。JVM 屏蔽了与具体操作系统平台相关的信息，使得 Java 程序只需生成在 Java 虚拟机上运行的目标代码（字节码），就可以在多种平台上不加修改地运行。
+从图中可以看到，有了 JVM 这个抽象层之后，Java 就可以实现跨平台了。JVM 只需要保证能够正确执行 .class 文件，就可以运行在诸如 Linux、Windows、MacOS 等平台上了。
+JVM 解释的是类似于汇编语言的字节码，需要一个抽象的运行时环境。同时，这个虚拟环境也需要解决字节码加载、自动垃圾回收、并发等一系列问题。JVM 其实是一个规范，定义了 .class 文件的结构、加载机制、数据存储、运行时栈等诸多内容，最常用的 JVM 实现就是 Hotspot。
+一个 Java 程序，首先经过 javac 编译成 .class 文件，然后 JVM 将其加载到 元数据 区，执行引擎将会通过 混合模式 执行这些字节码。执行时，会翻译成操作系统相关的函数。JVM 作为 .class 文件的黑盒存在，输入字节码，调用操作系统函数。 JVM、JRE 和 JDK 三者关系 # JVM 只是一个翻译官，它负责把字节码翻译成机器码，但是需要注意，JVM 不会自己生成代码，需要大家编写代码，同时需要很多依赖类库，这个时候就需要用到 JRE。</description></item><item><title>JVM 字节码指令简介</title><link>https://guanpj.github.io/amethyst/Knowledge/Java/%E8%99%9A%E6%8B%9F%E6%9C%BA/JVM-%E5%AD%97%E8%8A%82%E7%A0%81%E6%8C%87%E4%BB%A4%E7%AE%80%E4%BB%8B/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://guanpj.github.io/amethyst/Knowledge/Java/%E8%99%9A%E6%8B%9F%E6%9C%BA/JVM-%E5%AD%97%E8%8A%82%E7%A0%81%E6%8C%87%E4%BB%A4%E7%AE%80%E4%BB%8B/</guid><description>Java 虚拟机的指令由一个字节长度的、代表着某种特定操作含义的数字（称为操作码）以及跟随其后的零至多个代表此操作所需的参数（操作数）构成。
+在 Java 虚拟机的指令集中，大多数指令都包含其操作所对应的数据类型信息。比如， iload 指令用于从局部变量表中加载 int 型的数据到操作数栈中，而 fload 指令加载的则是 float 类型的数据。这两条指令的操作在虚拟机内部可能会是由同一段代码来实现的，但在 Class 文件中它们必须拥有各自独立的操作码。
+编译器会在编译期或运行期将 byte 和 short 类型的数据带符号扩展为相应的 int 类型数据，将 boolean 和 char 类型数据零位扩展为相应的 int 类型数据。因此，大多数对于 boolean、byte、short 和 char 类型数据的操作，实际上都是使用相应的对 int 类型作为运算类型来进行的。
+加载和存储指令 # 加载和存储指令用于将数据在栈帧中的局部变量表和操作数栈之间来回传输。这些指令如下：
+将一个局部变量加载到操作栈:iload、iload_、lload、lload_、fload、fload_、dload、dload_、aload、aload_ 将一个数值从操作数栈存储到局部变量表:istore、istore_、lstore、lstore_、fstore、fstore_、dstore、dstore_、astore、astore_ 将一个常量加载到操作数栈:bipush、sipush、ldc、ldc_w、ldc2_w、aconst_null、iconst_m1、iconst_、lconst_、fconst_、dconst_ 扩充局部变量表的访问索引的指令:wide 运算指令 # 算术指令用于对两个操作数栈上的值进行某种特定运算，并把结果重新存入到操作栈顶。
+加法指令:iadd、ladd、fadd、dadd 减法指令:isub、lsub、fsub、dsub 乘法指令:imul、lmul、fmul、dmul 除法指令:idiv、ldiv、fdiv、ddiv 求余指令:irem、lrem、frem、drem 取反指令:ineg、lneg、fneg、dneg 位移指令:ishl、ishr、iushr、lshl、lshr、lushr 按位或指令:ior、lor ·按位与指令:iand、land 按位异或指令:ixor、lxor ·局部变量自增指令:iinc 比较指令:dcmp g、dcmp l、fcmp g、fcmp l、lcmp 类型转换指令 # 类型转换指令可以将两种不同的数值类型相互转换，这些转换操作一般用于实现用户代码的显示类型转换操作，或者用来处理字节码指令集中数据类型相关指令无法与数据类型一一对应的问题。</description></item><item><title>JVM 字节码结构分析</title><link>https://guanpj.github.io/amethyst/Knowledge/Java/%E8%99%9A%E6%8B%9F%E6%9C%BA/JVM-%E5%AD%97%E8%8A%82%E7%A0%81%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://guanpj.github.io/amethyst/Knowledge/Java/%E8%99%9A%E6%8B%9F%E6%9C%BA/JVM-%E5%AD%97%E8%8A%82%E7%A0%81%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/</guid><description>概述 # 提到字节码，首先想到的就是 Java，Java 之所以可以“一次编译，到处运行”，一是因为 JVM 针对各种操作系统、平台都进行了定制，二是因为无论在什么平台，都可以编译生成固定格式的字节码（.class 文件）供 JVM 使用。
+​其实不止是 Java，其他很多编程语言如 Scala、Kotlin 和 Groovy 等都是运行在 JVM 的语言，因此它们对应的编译器也能够生成 .class 字节码。
+源代码中的各种变量，关键字和运算符号的语义最终都会编译成多条字节码命令。而字节码命令所能提供的语义描述能力是要明显强于 Java 本身的，所以有其他一些同样基于 JVM 的语言能提供许多 Java 所不支持的语言特性。
+在 Java 中一般是用 javac 命令编译源代码为字节码文件，一个 .java 文件从编译到运行的示例如下。
+JVM 的指令由一个字节长度的操作码（opcode）和紧随其后的可选的操作数（operand）构成。“字节码”这个名字的由来也是因为操作码的长度用一个字节表示。
+&amp;lt;opcode&amp;gt; [&amp;lt;operand1&amp;gt;, &amp;lt;operand2&amp;gt;]
+比如将整型常量 100 压栈到栈顶的指令是 “bipush 100”，其中 bipush 就是操作码，100 就是操作数。
+因为操作码长度只有 1 个字节长度，这使得编译后的字节码文件非常小巧紧凑，但同时也直接限制了整个 JVM 操作码指令集的数量最多只能有 256 个，目前已经使用了 200+。
+大部分字节码指令都包含了所要操作的类型信息。比如 “ireturn” 用于返回一个 int 类型的数据，“dreturn” 用于返回一个 double 类型的的数据，“freturn” 指令用于返回一个 float 类型的数据，这种方式也使得字节码实际的指令类型远小于 200 个。</description></item><item><title>JVM 类加载机制</title><link>https://guanpj.github.io/amethyst/Knowledge/Java/%E8%99%9A%E6%8B%9F%E6%9C%BA/JVM-%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://guanpj.github.io/amethyst/Knowledge/Java/%E8%99%9A%E6%8B%9F%E6%9C%BA/JVM-%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</guid><description>概述 # JVM 把描述类的数据从 Class 文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成可以被 JVM 直接使用的 Java 类型，这个过程被称作 JVM 的类加载机制。
+与那些在编译时需要进行连接的语言不同，在 Java 语言里面，类型的加载、连接和初始化过程都是在程序运行期间完成的，这种策略让 Java 语言进行提前编译会面临额外的困难，也会让类加载时稍微增加一些性能开销，但是却为 Java 应用提供了极高的扩展性和灵活性，Java 天生可以动态扩展的语言特性就是依赖运行期动态加载和动态连接这个特点实现的。
+类加载的时机 # 一个类型从被加载到虚拟机内存中开始到卸载位置，整个生命周期会经历如下七个阶段，其中验证、准备、解析三个部分统称为连接。 上图中，加载、验证、准备、初始化和卸载这五个阶段的顺序是确定的，类型的加载过程必须按照这种顺序按部就班地开始，而解析阶段则不一定：它在某些情况下可以在初始化阶段后再开始，这是为了支持 Java 语言的运行时半丁特性（也被称为动态绑定或者晚期绑定）。
+主动引用 # 关于在什么情况下需要开始类加载过程的第一个阶段“加载”，《Java 虚拟机规范》中并没有进行强制约束，这点可以交给虚拟机的具体实现来自由把握。但是对于初始化阶段，《Java 虚拟机规范》则是严格规定了有且只有六种情况必须立即对类进行“初始化”（而加载、验证和准备阶段自然需要在此之前开始）：
+遇到 new、getstatic、putstatic、invokestatic 这四条字节码指令时，如果类没有进行过初始化，则必须先触发其初始化。最常见的生成这四条指令的场景是：
+使用 new 关键字实例化对象的时候。 读取或设置一个类的静态字段（被 final 修饰、已在编译期把结果放入常量池的静态字段除外）的时候。 调用一个类的静态方法的时候。 使用 java.lang.reflect 包的方法对类进行反射调用的时候，如果类没有进行初始化，则需要先触发其初始化。
+当初始化一个类的时候，如果发现其父类还没有进行过初始化，则需要先触发其父类的初始化。
+当虚拟机启动时，用户需要指定一个要执行的主类（包含 main() 方法的那个类），虚拟机会先初始化这个主类；
+当使用 JDK 1.7 的动态语言支持时，如果一个 java.lang.invoke.MethodHandle 实例最后的解析结果为 REF_getStatic, REF_putStatic, REF_invokeStatic 的方法句柄，并且这个方法句柄所对应的类没有进行过初始化，则需要先触发其初始化。</description></item></channel></rss>

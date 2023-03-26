@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>垃圾回收 on</title><link>https://guanpj.github.io/amethyst/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/</link><description>Recent content in 垃圾回收 on</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://guanpj.github.io/amethyst/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/index.xml" rel="self" type="application/rss+xml"/><item><title>JVM 中的对象和垃圾回收</title><link>https://guanpj.github.io/amethyst/Knowledge/Java/%E8%99%9A%E6%8B%9F%E6%9C%BA/JVM-%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%92%8C%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://guanpj.github.io/amethyst/Knowledge/Java/%E8%99%9A%E6%8B%9F%E6%9C%BA/JVM-%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%92%8C%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/</guid><description>虚拟机中的对象 # 了解了 JVM 运行时数据区域之后，大致明白了 JVM 内存模型的概况，对内存中的存放内容也有了初步了解。更进一步地，如果要了解内存中的数据的创建过程、在内存中如何布局、以及访问方式等，就必须要把范围限定到具体的虚拟机类型和集中在某一个内存区域上才有意义。下面以最常用的 HotSpot 虚拟机和最常用的内存区域 Java 堆为例，深入探索对象分配、布局和访问过程。
+对象的创建 # 虚拟机遇到一条 new 指令时，首先检查是否被类加载器加载，如果没有，则必须先执行相应的类加载过程。类加载就是把 class 加载到 JVM 的运行时数据区的过程。
+1、检查加载 # 首先检查这个指令的参数是否能在常量池中定位到一个类的符号引用（以一组符号来描述所引用的目标），并且检查类是否已经被加载、解析和初始化过。
+2、分配内存 # 如果上一步检查加载成功，接下来虚拟机将为新生对象分配内存。为对象分配空间的任务等同于把一块确定大小的内存从 Java 堆中划分出来。
+分配内存主要有两种方式
+指针碰撞 # 如果 Java 堆中内存是绝对规整的，所有用过的内存都放在一边，空闲的内存放在另一边，中间放着一个指针作为分界点的指示器，那所分配内存就仅仅是把那个指针向空闲空间那边挪动一段与对象大小相等的距离，这种分配方式称为“指针碰撞”。
+空闲列表 # 如果 Java 堆中的内存并不是规整的，已使用的内存和空闲的内存相互交错，那就没有办法简单地进行指针碰撞了，虚拟机就必须维护一个列表，记录上哪些内存块是可用的，在分配的时候从列表中找到一块足够大的空间划分给对象实例，并更新列表上的记录，这种分配方式称为“空闲列表”。
+选择哪种分配方式由 Java 堆是否规整决定，而 Java 堆是否规整又由所采用的垃圾收集器是否带有压缩整理功能决定。
+如果是 Serial、ParNew 等带有压缩的整理的垃圾回收器的话，系统采用的是指针碰撞的方式，既简单又高效。
+如果是使用 CMS 这种不带压缩（整理）的垃圾回收器的话，理论上只能采用较复杂的空闲列表。
+内存分配的并发安全问题 # 除如何划分可用空间之外，还有另外一个需要考虑的问题是：对象创建在虚拟机中是非常频繁的行为，即使是仅仅修改一个指针所指向的位置，在并发情况下也并不是线程安全的。
+解决方案有以下两种：
+CAS 机制
+对分配内存空间的动作进行同步处理，虚拟机采用 CAS 配上失败重试的方式保证更新操作的原子性。虽然这种方式解决了并发问题，但是我们不难发现，这种方式增加了复杂度，降低了内存的分配的功效性。</description></item></channel></rss>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>泛型 on</title><link>https://guanpj.github.io/amethyst/tags/%E6%B3%9B%E5%9E%8B/</link><description>Recent content in 泛型 on</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://guanpj.github.io/amethyst/tags/%E6%B3%9B%E5%9E%8B/index.xml" rel="self" type="application/rss+xml"/><item><title>泛型</title><link>https://guanpj.github.io/amethyst/Knowledge/Java/%E5%9F%BA%E7%A1%80/%E6%B3%9B%E5%9E%8B/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://guanpj.github.io/amethyst/Knowledge/Java/%E5%9F%BA%E7%A1%80/%E6%B3%9B%E5%9E%8B/</guid><description>什么是泛型？ # 声明中具有一个或者多个类型参数(type parameter)的类或者接口，就是泛型类或者接口。泛型类和接口统称为泛型(generic type)。
+每种泛型定义一组类型形参(formal type parameters)，这些类型形参有时也被简称为类型参数(type parameter)，例如对于 List&amp;lt;E&amp;gt; 而言，List&amp;lt;String&amp;gt; 就是一个参数化的类型(parameterized type)，String 就是对应于类型形参(formal type parameters)的类型实参(actual type parameter)。
+而如果 List&amp;lt;E&amp;gt; 不使用泛型参数，List 则为原生类型(raw type)。原生类型就像从类型声明中删除了所有泛型信息一样。实际上原生类型 List 与 Java 平台在有泛型之前的接口类型 List 完全一样。
+每个泛型定义一个原生类型(raw type)，即不带任何类型参数的类型名称，例如，与 List&amp;lt;String&amp;gt; 对应的原生类型是 List。原生类型就像从类型声明中删除了所有泛型信息一样。实际上原生类型 List 与 Java 平台在有泛型之前的接口类型 List 完全一样。
+Java 泛型是自 JDK5 起引入的一种参数化类型特性，泛型提供了编译时类型安全检测机制，该机制允许程序员在编译时检测到非法的类型泛型的本质是参数类型，也就是说所操作的数据类型被指定为一个参数。因为类型擦除机制，泛型不存在于 JVM 虚拟机。
+为什么使用泛型？ # 1.使代码更健壮
+2.使代码更简洁(不用强转)
+3.使代码可复用性更高，程序更灵活
+通俗地说，泛型是「有远⻅的创造者」创造的「方便使用者」的工具。也就是说，使用泛型能够让开发这编写出更加灵活的代码。
+泛型的使用 # 作为类/接口的类型参数 # 可以在一个类或者接口里定义一个类型参数，等着子类/实现类去写出不同的实现：
+public interface Comparable&amp;lt;T&amp;gt; { int compareTo(T o); .</description></item></channel></rss>

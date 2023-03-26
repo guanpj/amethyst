@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>报文 on</title><link>https://guanpj.github.io/amethyst/tags/%E6%8A%A5%E6%96%87/</link><description>Recent content in 报文 on</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://guanpj.github.io/amethyst/tags/%E6%8A%A5%E6%96%87/index.xml" rel="self" type="application/rss+xml"/><item><title>HTTP 基础</title><link>https://guanpj.github.io/amethyst/Knowledge/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9B%B8%E5%85%B3/HTTP-%E5%9F%BA%E7%A1%80/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://guanpj.github.io/amethyst/Knowledge/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9B%B8%E5%85%B3/HTTP-%E5%9F%BA%E7%A1%80/</guid><description>什么是 HTTP ？ # Hypertext Transfer Protocol，超文本传输协议，和 HTML (Hypertext Markup Language 超文本标记语言) 一起诞生，用于在网络上请求和传输 HTML 内容。
+超文本，即「扩展型文本」，指的是 HTML 中可以有链向别的文本的链接 (hyperlink)。
+HTTP 报文格式 # 请求报文格式：
+响应报文格式：
+Request Method 请求方法 # GET # 用于获取资源 对服务器数据不进行修改 不发送 Body GET /users/1 HTTP/1.1 Host: api.github.com 对应 Retrofit 的代码：
+@GET(&amp;#34;/users/{id}&amp;#34;) Call&amp;lt;User&amp;gt; getUser(@Path(&amp;#34;id&amp;#34;) String id, @Query(&amp;#34;gender&amp;#34;) String gender); POST # 用于增加或修改资源 发送给服务器的内容写在 Body 里面 POST /users HTTP/1.</description></item></channel></rss>

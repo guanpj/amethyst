@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Java on</title><link>https://guanpj.github.io/amethyst/tags/Java/</link><description>Recent content in Java on</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://guanpj.github.io/amethyst/tags/Java/index.xml" rel="self" type="application/rss+xml"/><item><title>ADB 命令</title><link>https://guanpj.github.io/amethyst/Knowledge/Android/%E7%83%AD%E4%BF%AE%E5%A4%8D%E6%8F%92%E4%BB%B6%E5%8C%96/Java-%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://guanpj.github.io/amethyst/Knowledge/Android/%E7%83%AD%E4%BF%AE%E5%A4%8D%E6%8F%92%E4%BB%B6%E5%8C%96/Java-%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/</guid><description>代理模式是软件开发中常见的设计模式，它的目的是让调用者不用持有具体操作者的引用，而是通过代理者去对具体操作者执行具体的操作。本文通过使用静态代理和动态代理分别实现代理模式，来对比和分析两者的实现原理。
+静态代理的实现 # 代理接口：
+public interface Person {  String doSomething(int i); } 目标对象：
+public class Worker implements Person {  @Override  public String doSomething(int i) {  System.out.println(&amp;#34;I&amp;#39;m doing something by param: &amp;#34; + i);  } } 代理对象：
+public class PersonProxy implements Person {  private Worker worker = null;  @Override  public String doSomething(int i) {  beforeDoSomething();  if(worker == null) {  worker = new Worker();  }  Stirng result = worker.</description></item><item><title>CAS 和 AQS 原理</title><link>https://guanpj.github.io/amethyst/Knowledge/Java/%E5%B9%B6%E5%8F%91/CAS-%E5%92%8C-AQS-%E5%8E%9F%E7%90%86/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://guanpj.github.io/amethyst/Knowledge/Java/%E5%B9%B6%E5%8F%91/CAS-%E5%92%8C-AQS-%E5%8E%9F%E7%90%86/</guid><description>CAS # 介绍 # CAS 英文全称是 Compare-And-Swap，中文叫做“比较并交换”，它是一种思想、一种算法。
+在大多数处理器的指令中，都会实现 CAS 相关的指令，这一条指令就可以完成“比较并交换”的操作，也正是由于这是一条（而不是多条）CPU 指令，所以 CAS 相关的指令是具备原子性的，这个组合操作在执行期间不会被打断，这样就能保证并发安全。由于这个原子性是由 CPU 保证的，所以无需我们程序员来操心。
+CAS 有三个操作数：内存值 V、预期值 A、要修改的值 B。CAS 最核心的思路就是，仅当预期值 A 和当前的内存值 V 相同时，才将内存值修改为 B。
+使用及原理 # ConcurrentHashMap # 截取 ConcurrentHashMap 部分 putVal 方法的代码，如下所示：
+final V putVal(K key, V value, boolean onlyIfAbsent) {  if (key == null || value == null) throw new NullPointerException();  int hash = spread(key.hashCode());  int binCount = 0;  for (Node&amp;lt;K,V&amp;gt;[] tab = table;;) {  Node&amp;lt;K,V&amp;gt; f; int n, i, fh;  if (tab == null || (n = tab.</description></item><item><title>HashMap 源码解析</title><link>https://guanpj.github.io/amethyst/Knowledge/Java/%E5%9F%BA%E7%A1%80/HashMap-%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://guanpj.github.io/amethyst/Knowledge/Java/%E5%9F%BA%E7%A1%80/HashMap-%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/</guid><description>前言 # HashMap 是 Java 中最常用 K-V 容器，使用哈希值来确定元素存储的位置，HashMap 对 Entry 进行了扩展（Node），使其形成以链表或者树的形式存储在 HashMap 的容器里。
+在 Java 8 之前和之后，HashMap 的实现有较大的不同，因此对于 put 流程、扩容机制等主要过程分析将会采用两个版本进行对比。
+成员变量 # HashMap 成员变量和构造方法声明如下（Java 7 和 8 大致相同，以下为 Java 8 版本）：
+public class HashMap&amp;lt;K,V&amp;gt; extends AbstractMap&amp;lt;K,V&amp;gt;  implements Map&amp;lt;K,V&amp;gt;, Cloneable, Serializable {  // 初始容量 16  static final int DEFAULT_INITIAL_CAPACITY = 1 &amp;lt;&amp;lt; 4; // aka 16  // 最大容量，该数组最大值为2^31一次方。  static final int MAXIMUM_CAPACITY = 1 &amp;lt;&amp;lt; 30;  // 默认的加载因子，如果构造的时候不传则为 0.</description></item><item><title>IO</title><link>https://guanpj.github.io/amethyst/Knowledge/Java/%E5%9F%BA%E7%A1%80/IO/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://guanpj.github.io/amethyst/Knowledge/Java/%E5%9F%BA%E7%A1%80/IO/</guid><description/></item><item><title>Java 内存模型</title><link>https://guanpj.github.io/amethyst/Knowledge/Java/%E5%B9%B6%E5%8F%91/Java-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://guanpj.github.io/amethyst/Knowledge/Java/%E5%B9%B6%E5%8F%91/Java-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/</guid><description>JMM 是什么？ # JMM 是和多线程相关的一组规范，它 定义了 JVM 在计算机内存中的工作方式，需要各个 JVM 的实现来遵守 JMM 规范，以便于开发者可以利用这些规范，更方便地开发多线程程序。这样，即便同一个程序在不同的虚拟机上运行，得到的程序结果也是一致的，从而保证了“一次编译，处处运行”。
+因此，JMM 与处理器、缓存、并发、编译器有关。它解决了 CPU 多级缓存、处理器优化、指令重排等导致的结果不可预期的问题。
+比如关键字 synchronized，JVM 就会在 JMM 的规则下，“翻译”出合适的指令，包括限制指令之间的顺序，以便在即使发生了重排序的情况下，也能保证必要的“可见性”。这样一来，不同的 JVM 对于相同的代码的执行结果就变得可预期了，Java 程序员就只需要用同步工具和关键字就可以开发出正确的并发程序了。
+JMM 抽象结构 # Java 作为高级语言，他向开发者屏蔽了多层缓存等底层细节，用 JMM 定义了一套读写数据的规范。Java 线程之间的通信由 JMM 控制，JMM 决定一个线程对共享变量的写入何时对另一个线程可见。从抽象的角度来看，JMM 定义了线程和主内存之间的抽象关系：
+线程之间的共享变量存储在主内存中； 每个线程只能够直接接触到本地内存，无法直接操作主内存； 每个线程都有一个私有的本地内存，本地内存中存储了该线程以读/写共享变量的副本。 本地内存是 JMM 的一个抽象概念，并不真实存在。它涵盖了缓存、写缓冲区、寄存器以及其他的硬件和编译器优化。
+内存间交互操作 # Java 内存模型定义了 8 个操作来完成主内存和工作内存的交互操作。
+read：把一个变量的值从主内存传输到工作内存中 load：在 read 之后执行，把 read 得到的值放入工作内存的变量副本中 use：把工作内存中一个变量的值传递给执行引擎 assign：把一个从执行引擎接收到的值赋给工作内存的变量 store：把工作内存的一个变量的值传送到主内存中 write：在 store 之后执行，把 store 得到的值放入主内存的变量中 lock：作用于主内存的变量 unlock JMM 三大特性 # 原子性 # 如果一个或者一系列的操作，要么全部执行成功，要么全部不执行，不会出现执行一半就终止的情况，则认为此操作具有原子性。</description></item><item><title>JVM 中的对象和垃圾回收</title><link>https://guanpj.github.io/amethyst/Knowledge/Java/%E8%99%9A%E6%8B%9F%E6%9C%BA/JVM-%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%92%8C%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://guanpj.github.io/amethyst/Knowledge/Java/%E8%99%9A%E6%8B%9F%E6%9C%BA/JVM-%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%92%8C%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/</guid><description>虚拟机中的对象 # 了解了 JVM 运行时数据区域之后，大致明白了 JVM 内存模型的概况，对内存中的存放内容也有了初步了解。更进一步地，如果要了解内存中的数据的创建过程、在内存中如何布局、以及访问方式等，就必须要把范围限定到具体的虚拟机类型和集中在某一个内存区域上才有意义。下面以最常用的 HotSpot 虚拟机和最常用的内存区域 Java 堆为例，深入探索对象分配、布局和访问过程。
+对象的创建 # 虚拟机遇到一条 new 指令时，首先检查是否被类加载器加载，如果没有，则必须先执行相应的类加载过程。类加载就是把 class 加载到 JVM 的运行时数据区的过程。
+1、检查加载 # 首先检查这个指令的参数是否能在常量池中定位到一个类的符号引用（以一组符号来描述所引用的目标），并且检查类是否已经被加载、解析和初始化过。
+2、分配内存 # 如果上一步检查加载成功，接下来虚拟机将为新生对象分配内存。为对象分配空间的任务等同于把一块确定大小的内存从 Java 堆中划分出来。
+分配内存主要有两种方式
+指针碰撞 # 如果 Java 堆中内存是绝对规整的，所有用过的内存都放在一边，空闲的内存放在另一边，中间放着一个指针作为分界点的指示器，那所分配内存就仅仅是把那个指针向空闲空间那边挪动一段与对象大小相等的距离，这种分配方式称为“指针碰撞”。
+空闲列表 # 如果 Java 堆中的内存并不是规整的，已使用的内存和空闲的内存相互交错，那就没有办法简单地进行指针碰撞了，虚拟机就必须维护一个列表，记录上哪些内存块是可用的，在分配的时候从列表中找到一块足够大的空间划分给对象实例，并更新列表上的记录，这种分配方式称为“空闲列表”。
+选择哪种分配方式由 Java 堆是否规整决定，而 Java 堆是否规整又由所采用的垃圾收集器是否带有压缩整理功能决定。
+如果是 Serial、ParNew 等带有压缩的整理的垃圾回收器的话，系统采用的是指针碰撞的方式，既简单又高效。
+如果是使用 CMS 这种不带压缩（整理）的垃圾回收器的话，理论上只能采用较复杂的空闲列表。
+内存分配的并发安全问题 # 除如何划分可用空间之外，还有另外一个需要考虑的问题是：对象创建在虚拟机中是非常频繁的行为，即使是仅仅修改一个指针所指向的位置，在并发情况下也并不是线程安全的。
+解决方案有以下两种：
+CAS 机制
+对分配内存空间的动作进行同步处理，虚拟机采用 CAS 配上失败重试的方式保证更新操作的原子性。虽然这种方式解决了并发问题，但是我们不难发现，这种方式增加了复杂度，降低了内存的分配的功效性。</description></item><item><title>JVM 内存区域</title><link>https://guanpj.github.io/amethyst/Knowledge/Java/%E8%99%9A%E6%8B%9F%E6%9C%BA/JVM-%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://guanpj.github.io/amethyst/Knowledge/Java/%E8%99%9A%E6%8B%9F%E6%9C%BA/JVM-%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/</guid><description>简介 # 什么是 JVM？ # Java 虚拟机（Java Virtual Machine，简称 JVM），它能识别 .class 后缀的字节码文件（Java bytecode），并且能够解析它的指令，最终调用操作系统上的函数以完成指定操作。
+为什么需要 JVM？ # Java 程序使用 javac 编译成 .class 文件之后，还需要使用 Java 命令去主动执行它，操作系统并不认识这些 .class 文件，JVM 则充当了翻译官的角色。JVM 屏蔽了与具体操作系统平台相关的信息，使得 Java 程序只需生成在 Java 虚拟机上运行的目标代码（字节码），就可以在多种平台上不加修改地运行。
+从图中可以看到，有了 JVM 这个抽象层之后，Java 就可以实现跨平台了。JVM 只需要保证能够正确执行 .class 文件，就可以运行在诸如 Linux、Windows、MacOS 等平台上了。
+JVM 解释的是类似于汇编语言的字节码，需要一个抽象的运行时环境。同时，这个虚拟环境也需要解决字节码加载、自动垃圾回收、并发等一系列问题。JVM 其实是一个规范，定义了 .class 文件的结构、加载机制、数据存储、运行时栈等诸多内容，最常用的 JVM 实现就是 Hotspot。
+一个 Java 程序，首先经过 javac 编译成 .class 文件，然后 JVM 将其加载到 元数据 区，执行引擎将会通过 混合模式 执行这些字节码。执行时，会翻译成操作系统相关的函数。JVM 作为 .class 文件的黑盒存在，输入字节码，调用操作系统函数。 JVM、JRE 和 JDK 三者关系 # JVM 只是一个翻译官，它负责把字节码翻译成机器码，但是需要注意，JVM 不会自己生成代码，需要大家编写代码，同时需要很多依赖类库，这个时候就需要用到 JRE。</description></item><item><title>JVM 字节码指令简介</title><link>https://guanpj.github.io/amethyst/Knowledge/Java/%E8%99%9A%E6%8B%9F%E6%9C%BA/JVM-%E5%AD%97%E8%8A%82%E7%A0%81%E6%8C%87%E4%BB%A4%E7%AE%80%E4%BB%8B/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://guanpj.github.io/amethyst/Knowledge/Java/%E8%99%9A%E6%8B%9F%E6%9C%BA/JVM-%E5%AD%97%E8%8A%82%E7%A0%81%E6%8C%87%E4%BB%A4%E7%AE%80%E4%BB%8B/</guid><description>Java 虚拟机的指令由一个字节长度的、代表着某种特定操作含义的数字（称为操作码）以及跟随其后的零至多个代表此操作所需的参数（操作数）构成。
+在 Java 虚拟机的指令集中，大多数指令都包含其操作所对应的数据类型信息。比如， iload 指令用于从局部变量表中加载 int 型的数据到操作数栈中，而 fload 指令加载的则是 float 类型的数据。这两条指令的操作在虚拟机内部可能会是由同一段代码来实现的，但在 Class 文件中它们必须拥有各自独立的操作码。
+编译器会在编译期或运行期将 byte 和 short 类型的数据带符号扩展为相应的 int 类型数据，将 boolean 和 char 类型数据零位扩展为相应的 int 类型数据。因此，大多数对于 boolean、byte、short 和 char 类型数据的操作，实际上都是使用相应的对 int 类型作为运算类型来进行的。
+加载和存储指令 # 加载和存储指令用于将数据在栈帧中的局部变量表和操作数栈之间来回传输。这些指令如下：
+将一个局部变量加载到操作栈:iload、iload_、lload、lload_、fload、fload_、dload、dload_、aload、aload_ 将一个数值从操作数栈存储到局部变量表:istore、istore_、lstore、lstore_、fstore、fstore_、dstore、dstore_、astore、astore_ 将一个常量加载到操作数栈:bipush、sipush、ldc、ldc_w、ldc2_w、aconst_null、iconst_m1、iconst_、lconst_、fconst_、dconst_ 扩充局部变量表的访问索引的指令:wide 运算指令 # 算术指令用于对两个操作数栈上的值进行某种特定运算，并把结果重新存入到操作栈顶。
+加法指令:iadd、ladd、fadd、dadd 减法指令:isub、lsub、fsub、dsub 乘法指令:imul、lmul、fmul、dmul 除法指令:idiv、ldiv、fdiv、ddiv 求余指令:irem、lrem、frem、drem 取反指令:ineg、lneg、fneg、dneg 位移指令:ishl、ishr、iushr、lshl、lshr、lushr 按位或指令:ior、lor ·按位与指令:iand、land 按位异或指令:ixor、lxor ·局部变量自增指令:iinc 比较指令:dcmp g、dcmp l、fcmp g、fcmp l、lcmp 类型转换指令 # 类型转换指令可以将两种不同的数值类型相互转换，这些转换操作一般用于实现用户代码的显示类型转换操作，或者用来处理字节码指令集中数据类型相关指令无法与数据类型一一对应的问题。</description></item><item><title>JVM 字节码结构分析</title><link>https://guanpj.github.io/amethyst/Knowledge/Java/%E8%99%9A%E6%8B%9F%E6%9C%BA/JVM-%E5%AD%97%E8%8A%82%E7%A0%81%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://guanpj.github.io/amethyst/Knowledge/Java/%E8%99%9A%E6%8B%9F%E6%9C%BA/JVM-%E5%AD%97%E8%8A%82%E7%A0%81%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/</guid><description>概述 # 提到字节码，首先想到的就是 Java，Java 之所以可以“一次编译，到处运行”，一是因为 JVM 针对各种操作系统、平台都进行了定制，二是因为无论在什么平台，都可以编译生成固定格式的字节码（.class 文件）供 JVM 使用。
+​其实不止是 Java，其他很多编程语言如 Scala、Kotlin 和 Groovy 等都是运行在 JVM 的语言，因此它们对应的编译器也能够生成 .class 字节码。
+源代码中的各种变量，关键字和运算符号的语义最终都会编译成多条字节码命令。而字节码命令所能提供的语义描述能力是要明显强于 Java 本身的，所以有其他一些同样基于 JVM 的语言能提供许多 Java 所不支持的语言特性。
+在 Java 中一般是用 javac 命令编译源代码为字节码文件，一个 .java 文件从编译到运行的示例如下。
+JVM 的指令由一个字节长度的操作码（opcode）和紧随其后的可选的操作数（operand）构成。“字节码”这个名字的由来也是因为操作码的长度用一个字节表示。
+&amp;lt;opcode&amp;gt; [&amp;lt;operand1&amp;gt;, &amp;lt;operand2&amp;gt;]
+比如将整型常量 100 压栈到栈顶的指令是 “bipush 100”，其中 bipush 就是操作码，100 就是操作数。
+因为操作码长度只有 1 个字节长度，这使得编译后的字节码文件非常小巧紧凑，但同时也直接限制了整个 JVM 操作码指令集的数量最多只能有 256 个，目前已经使用了 200+。
+大部分字节码指令都包含了所要操作的类型信息。比如 “ireturn” 用于返回一个 int 类型的数据，“dreturn” 用于返回一个 double 类型的的数据，“freturn” 指令用于返回一个 float 类型的数据，这种方式也使得字节码实际的指令类型远小于 200 个。</description></item><item><title>JVM 类加载机制</title><link>https://guanpj.github.io/amethyst/Knowledge/Java/%E8%99%9A%E6%8B%9F%E6%9C%BA/JVM-%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://guanpj.github.io/amethyst/Knowledge/Java/%E8%99%9A%E6%8B%9F%E6%9C%BA/JVM-%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</guid><description>概述 # JVM 把描述类的数据从 Class 文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成可以被 JVM 直接使用的 Java 类型，这个过程被称作 JVM 的类加载机制。
+与那些在编译时需要进行连接的语言不同，在 Java 语言里面，类型的加载、连接和初始化过程都是在程序运行期间完成的，这种策略让 Java 语言进行提前编译会面临额外的困难，也会让类加载时稍微增加一些性能开销，但是却为 Java 应用提供了极高的扩展性和灵活性，Java 天生可以动态扩展的语言特性就是依赖运行期动态加载和动态连接这个特点实现的。
+类加载的时机 # 一个类型从被加载到虚拟机内存中开始到卸载位置，整个生命周期会经历如下七个阶段，其中验证、准备、解析三个部分统称为连接。 上图中，加载、验证、准备、初始化和卸载这五个阶段的顺序是确定的，类型的加载过程必须按照这种顺序按部就班地开始，而解析阶段则不一定：它在某些情况下可以在初始化阶段后再开始，这是为了支持 Java 语言的运行时半丁特性（也被称为动态绑定或者晚期绑定）。
+主动引用 # 关于在什么情况下需要开始类加载过程的第一个阶段“加载”，《Java 虚拟机规范》中并没有进行强制约束，这点可以交给虚拟机的具体实现来自由把握。但是对于初始化阶段，《Java 虚拟机规范》则是严格规定了有且只有六种情况必须立即对类进行“初始化”（而加载、验证和准备阶段自然需要在此之前开始）：
+遇到 new、getstatic、putstatic、invokestatic 这四条字节码指令时，如果类没有进行过初始化，则必须先触发其初始化。最常见的生成这四条指令的场景是：
+使用 new 关键字实例化对象的时候。 读取或设置一个类的静态字段（被 final 修饰、已在编译期把结果放入常量池的静态字段除外）的时候。 调用一个类的静态方法的时候。 使用 java.lang.reflect 包的方法对类进行反射调用的时候，如果类没有进行初始化，则需要先触发其初始化。
+当初始化一个类的时候，如果发现其父类还没有进行过初始化，则需要先触发其父类的初始化。
+当虚拟机启动时，用户需要指定一个要执行的主类（包含 main() 方法的那个类），虚拟机会先初始化这个主类；
+当使用 JDK 1.7 的动态语言支持时，如果一个 java.lang.invoke.MethodHandle 实例最后的解析结果为 REF_getStatic, REF_putStatic, REF_invokeStatic 的方法句柄，并且这个方法句柄所对应的类没有进行过初始化，则需要先触发其初始化。</description></item><item><title>容器类</title><link>https://guanpj.github.io/amethyst/Knowledge/Java/%E5%9F%BA%E7%A1%80/%E5%AE%B9%E5%99%A8%E7%B1%BB/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://guanpj.github.io/amethyst/Knowledge/Java/%E5%9F%BA%E7%A1%80/%E5%AE%B9%E5%99%A8%E7%B1%BB/</guid><description>全家福： Iterable 接口 # 可迭代的意思，实现此接口允许对象成为“for-each”循环语句的目标，提供 iterator 方法用于遍历元素。
+public interface Iterable&amp;lt;T&amp;gt; { Iterator&amp;lt;T&amp;gt; iterator(); default void forEach(Consumer&amp;lt;? super T&amp;gt; action) { Objects.requireNonNull(action); for (T t : this) { action.accept(t); } } default Spliterator&amp;lt;T&amp;gt; spliterator() { return Spliterators.spliteratorUnknownSize(iterator(), 0); } } Iterator 意思为迭代器，它的定义如下：
+public interface Iterator&amp;lt;E&amp;gt; { boolean hasNext(); E next(); default void remove() { throw new UnsupportedOperationException(&amp;#34;remove&amp;#34;); } default void forEachRemaining(Consumer&amp;lt;?</description></item><item><title>并发容器</title><link>https://guanpj.github.io/amethyst/Knowledge/Java/%E5%B9%B6%E5%8F%91/%E5%B9%B6%E5%8F%91%E5%AE%B9%E5%99%A8/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://guanpj.github.io/amethyst/Knowledge/Java/%E5%B9%B6%E5%8F%91/%E5%B9%B6%E5%8F%91%E5%AE%B9%E5%99%A8/</guid><description>ConcurentHashMap # Java 7 实现 # Java 7 版本的 ConcurrentHashMap 数据结构示意图：
+ConcurrentHashMap 内部进行了 Segment 分段，Segment 继承了 ReentrantLock，可以理解为一把锁，各个 Segment 之间都是相互独立上锁的，互不影响。相比于之前的 Hashtable 每次操作都需要把整个对象锁住而言，大大提高了并发效率。因为它的锁与锁之间是独立的，而不是整个对象只有一把锁。
+每个 Segment 的底层数据结构与 HashMap 类似，仍然是数组和链表组成的拉链法结构。默认有 0~15 共 16 个 Segment，所以最多可以同时支持 16 个线程并发操作（操作分别分布在不同的 Segment 上）。16 这个默认值可以在初始化的时候设置为其他值，但是一旦确认初始化以后，是不可以扩容的。
+构造方法 # public ConcurrentHashMap(int initialCapacity, float loadFactor, int concurrencyLevel) { if (!(loadFactor &amp;gt; 0) || initialCapacity &amp;lt; 0 || concurrencyLevel &amp;lt;= 0) throw new IllegalArgumentException(); if (concurrencyLevel &amp;gt; MAX_SEGMENTS) concurrencyLevel = MAX_SEGMENTS; // Find power-of-two sizes best matching arguments int sshift = 0; int ssize = 1; while (ssize &amp;lt; concurrencyLevel) { ++sshift; ssize &amp;lt;&amp;lt;= 1; } this.</description></item><item><title>泛型</title><link>https://guanpj.github.io/amethyst/Knowledge/Java/%E5%9F%BA%E7%A1%80/%E6%B3%9B%E5%9E%8B/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://guanpj.github.io/amethyst/Knowledge/Java/%E5%9F%BA%E7%A1%80/%E6%B3%9B%E5%9E%8B/</guid><description>什么是泛型？ # 声明中具有一个或者多个类型参数(type parameter)的类或者接口，就是泛型类或者接口。泛型类和接口统称为泛型(generic type)。
+每种泛型定义一组类型形参(formal type parameters)，这些类型形参有时也被简称为类型参数(type parameter)，例如对于 List&amp;lt;E&amp;gt; 而言，List&amp;lt;String&amp;gt; 就是一个参数化的类型(parameterized type)，String 就是对应于类型形参(formal type parameters)的类型实参(actual type parameter)。
+而如果 List&amp;lt;E&amp;gt; 不使用泛型参数，List 则为原生类型(raw type)。原生类型就像从类型声明中删除了所有泛型信息一样。实际上原生类型 List 与 Java 平台在有泛型之前的接口类型 List 完全一样。
+每个泛型定义一个原生类型(raw type)，即不带任何类型参数的类型名称，例如，与 List&amp;lt;String&amp;gt; 对应的原生类型是 List。原生类型就像从类型声明中删除了所有泛型信息一样。实际上原生类型 List 与 Java 平台在有泛型之前的接口类型 List 完全一样。
+Java 泛型是自 JDK5 起引入的一种参数化类型特性，泛型提供了编译时类型安全检测机制，该机制允许程序员在编译时检测到非法的类型泛型的本质是参数类型，也就是说所操作的数据类型被指定为一个参数。因为类型擦除机制，泛型不存在于 JVM 虚拟机。
+为什么使用泛型？ # 1.使代码更健壮
+2.使代码更简洁(不用强转)
+3.使代码可复用性更高，程序更灵活
+通俗地说，泛型是「有远⻅的创造者」创造的「方便使用者」的工具。也就是说，使用泛型能够让开发这编写出更加灵活的代码。
+泛型的使用 # 作为类/接口的类型参数 # 可以在一个类或者接口里定义一个类型参数，等着子类/实现类去写出不同的实现：
+public interface Comparable&amp;lt;T&amp;gt; { int compareTo(T o); .</description></item><item><title>注解和反射</title><link>https://guanpj.github.io/amethyst/Knowledge/Java/%E5%9F%BA%E7%A1%80/%E6%B3%A8%E8%A7%A3%E5%92%8C%E5%8F%8D%E5%B0%84/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://guanpj.github.io/amethyst/Knowledge/Java/%E5%9F%BA%E7%A1%80/%E6%B3%A8%E8%A7%A3%E5%92%8C%E5%8F%8D%E5%B0%84/</guid><description>注解是什么？有何作用？ # Java 注解（Annotation）又称 Java 标注，是 JDK1.5 引入的一种注释机制。是元数据的一种形式，提供有关于程序但不属于程序本身的数据。注解对它们注解的代码的操作没有直接影响。
+注解本身没有任何意义，单独的注解就是一种注释，他需要结合其他如反射、插桩等技术才有意义。
+元注解 # 在 JDK 中提供了 4 个标准的用来对注解类型进行注解的注解类，我们称之为 meta-annotation（元注解），他们分别是：
+@Target # Target 注解的作用是：描述注解的使用范围(即被修饰的注解可以用在什么地方).
+Target 注解用来说明那些被它所注解的注解类可修饰的对象范围：注解可以用于修饰 packages、types（类、接口、枚举、注解类）、类成员（方法、构造方法、成员变量、枚举值）、方法参数和本地变量（如循环变量、catch 参数），在定义注解类时使用了 @Target 能够更加清晰的知道它能够被用来修饰哪些对象，它的取值范围定义在 ElementType 枚举中.
+源码：
+@Documented @Retention(RetentionPolicy.RUNTIME) @Target(ElementType.ANNOTATION_TYPE) public @interface Target { ElementType[] value(); } ElementType定义： public enum ElementType { TYPE, // 类、接口、枚举类 FIELD, // 成员变量（包括：枚举常量） METHOD, // 成员方法 PARAMETER, // 方法参数 CONSTRUCTOR, // 构造方法 LOCAL_VARIABLE, // 局部变量 ANNOTATION_TYPE, // 注解类 PACKAGE, // 可用于修饰：包 TYPE_PARAMETER, // 类型参数，JDK 1.</description></item><item><title>等待-通知机制</title><link>https://guanpj.github.io/amethyst/Knowledge/Java/%E5%B9%B6%E5%8F%91/%E7%AD%89%E5%BE%85-%E9%80%9A%E7%9F%A5%E6%9C%BA%E5%88%B6/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://guanpj.github.io/amethyst/Knowledge/Java/%E5%B9%B6%E5%8F%91/%E7%AD%89%E5%BE%85-%E9%80%9A%E7%9F%A5%E6%9C%BA%E5%88%B6/</guid><description>wait/notify 模式 # public class MyBlockingQueueForWaitNotify {
+ private int maxSize = 16;
+ private LinkedList storage;
+  public MyBlockingQueueForWaitNotify (int size) {
+ this.maxSize = size;
+ storage = new LinkedList&amp;lt;&amp;gt;();
+ }
+  public synchronized void put() throws InterruptedException {
+ while (storage.size() == maxSize) {
+ this.wait();
+ }
+ storage.add(new Object());
+ this.notifyAll();
+ }
+  public synchronized void take() throws InterruptedException {</description></item><item><title>线程协作</title><link>https://guanpj.github.io/amethyst/Knowledge/Java/%E5%B9%B6%E5%8F%91/%E7%BA%BF%E7%A8%8B%E5%8D%8F%E4%BD%9C/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://guanpj.github.io/amethyst/Knowledge/Java/%E5%B9%B6%E5%8F%91/%E7%BA%BF%E7%A8%8B%E5%8D%8F%E4%BD%9C/</guid><description>Thread.join() # 使用 # public class UseJoin { public static void main(String[] args) { final Thread thread1 = new Thread(() -&amp;gt; { try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); } System.out.println(&amp;#34;thread 1 is running&amp;#34;); }); final Thread thread2 = new Thread(() -&amp;gt; { try { thread1.join(); try { Thread.sleep(1000); } catch (InterruptedException e) { e.</description></item><item><title>线程基础</title><link>https://guanpj.github.io/amethyst/Knowledge/Java/%E5%B9%B6%E5%8F%91/%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://guanpj.github.io/amethyst/Knowledge/Java/%E5%B9%B6%E5%8F%91/%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/</guid><description>CPU 核心数和线程数的关系 # 增加 CPU 核心数目就是为了增加线程数，因为操作系统是通过线程来执行任务的，一般情况下它们是 1:1 对应关系，也就是说四核 CPU 一般拥有四个线程。但 Intel 引入超线程技术后，使核心数与线程数形成 1:2 的关系。
+进程和线程 # 进程是程序运行资源分配的最小单位 # 进程是操作系统进行资源分配的最小单位，其中资源包括：CPU、内存空间、磁盘等，同一进程中的多条线程共享该进程中的全部系统资源，而进程和进程之间是相互独立的。进程是具有一定独立功能的程序关于某个数据集合上的一次运行活动，进程是系统进行资源分配和调度的一个独立单位。
+进程是程序在计算机上的一次执行活动。当你运行一个程序，你就启动了一个进程。显然，程序是死的、静态的，进程是活的、动态的。
+进程可以分为系统进程和用户进程。凡是用于完成操作系统的各种功能的进程就是系统进程，它们就是处于运行状态下的操作系统本身，用户进程就是所有由你启动的进程。
+线程是 CPU 调度的最小单位，必须依赖于进程而存在 # 线程是进程的一个实体，是 CPU 调度和分派的基本单位，它是比进程更小的、能独立运行的基本单位。
+线程自己基本上不拥有系统资源，只拥有一点在运行中必不可少的资源(如程序计数器，一组寄存器和栈)，但是它可与同属一个进程的其他的线程共享进程所拥有的全部资源。
+线程无处不在，任何一个程序都必须要创建线程。特别是 Java，不管任何程序都必须启动一个 main 函数的主线程；Java Web 开发里面的定时任务、定时器、JSP 和 Servlet、异步消息处理机制，远程访问接口 RM 等；Android 中的任何一个 onClick 事件的触发事件等都离不开线程和并发的知识。
+并行和并发 # 举个例子，如果有条高速公路 A 上面并排有 8 条车道，那么最大的并行车辆就是 8 辆，此条高速公路 A 同时并排行走的车辆小于等于 8 辆的时候，车辆就可以并行运行。CPU 也是这个原理，一个 CPU 相当于一个高速公路 A，核心数或者线程数就相当于并排可以通行的车道；而多个 CPU 就相当于并排有多条高速公路，而每个高速公路并排有多个车道。
+当谈论并发的时候一定要加个单位时间，也就是说单位时间内并发量是多少？离开了单位时间其实是没有意义的。
+原则上一个 CPU 只能分配给一个进程，以便运行这个进程。我们通常使用的计算机中只有一个 CPU，也就是说只有一颗心，要让它一心多用同时运行多个进程，就必须使用并发技术。实现并发技术相当复杂，最容易理解的是“时间片轮转进程调度算法”。</description></item><item><title>线程池和 BlockingQueue</title><link>https://guanpj.github.io/amethyst/Knowledge/Java/%E5%B9%B6%E5%8F%91/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%92%8C-BlockingQueue/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://guanpj.github.io/amethyst/Knowledge/Java/%E5%B9%B6%E5%8F%91/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%92%8C-BlockingQueue/</guid><description>BlockingQueue 阻塞队列 # 队列 # 队列是一种特殊的线性表，特殊之处在于它只允许在表的前端（front）进行删除操作，而在表的后端（rear）进行插入操作，和栈一样，队列是一种操作受限制的线性表。进行插入操作的端称为队尾，进行删除操作的端称为队头。
+在队列中插入一个队列元素称为入队，从队列中删除一个队列元素称为出队。因为队列只允许在一端插入，在另一端删除，所以只有最早进入队列的元素才能最先从队列中删除，故队列又称为先进先出（FIFO—first in first out）线性表。
+什么是阻塞队列 # public interface BlockingQueue&amp;lt;E&amp;gt; extends Queue&amp;lt;E&amp;gt;
+支持阻塞的插入方法：意思是当队列满时，队列会阻塞插入元素的线程，直到队列不满。 支持阻塞的移除方法：意思是在队列为空时，获取元素的线程会等待队列变为非空。 阻塞队列常用于生产者和消费者的场景，生产者是向队列里添加元素的线程，消费者是从队列里取元素的线程。阻塞队列就是生产者用来存放元素、消费者用来获取元素的容器。
+抛出异常：当队列满时，如果再往队列里插入元素，会抛出 IllegalStateException（&amp;ldquo;Queuefull&amp;rdquo;）异常。当队列空时，从队列里获取元素会抛出 NoSuchElementException 异常。 返回特殊值：当往队列插入元素时，会返回元素是否插入成功，成功返回 true。如果是移除方法，则是从队列里取出一个元素，如果没有则返回 null。 一直阻塞：当阻塞队列满时，如果生产者线程往队列里 put 元素，队列会一直阻塞生产者线程，直到队列可用或者响应中断退出。当队列空时，如果消费者线程从队列里 take 元素，队列会阻塞住消费者线程，直到队列不为空。 超时退出：当阻塞队列满时，如果生产者线程往队列里插入元素，队列会阻塞生产者线程一段时间，如果超过了指定的时间，生产者线程就会退出。 常用阻塞队列 # ArrayBlockingQueue # 用数组实现的有界阻塞队列。此队列按照先进先出（FIFO）的原则对元素进行排序。默认情况下不保证线程公平的访问队列。可在初始化时通过参数设置，默认是非公平的。
+所谓公平访问队列是指阻塞的线程可以按照阻塞的先后顺序访问队列，即先阻塞线程先访问队列。非公平性是对先等待的线程是非公平的，当队列可用时，阻塞的线程都可以争夺访问队列的资格，有可能先阻塞的线程最后才访问队列。
+LinkedBlockingQueue # 用链表实现的有界阻塞队列。此队列的默认和最大长度为 Integer.MAX_VALUE。此队列按照先进先出的原则对元素进行排序。
+PriorityBlockingQueue # 支持优先级的无界阻塞队列。默认情况下元素采取自然顺序升序排列。也可以自定义类实现 compareTo() 方法来指定元素排序规则，或者初始化 PriorityBlockingQueue 时，指定构造参数 Comparator 来对元素进行排序。需要注意的是不能保证同优先级元素的顺序。
+DelayQueue # 支持延时获取元素的无界阻塞队列。队列使用 PriorityQueue 来实现。队列中的元素必须实现 Delayed 接口，在创建元素时可以指定多久才能从队列中获取当前元素。只有在延迟期满时才能从队列中提取元素。DelayQueue 非常有用，可以将 DelayQueue 运用在缓存系统的设计：用 DelayQueue 保存缓存元素的有效期，使用一个线程循环查询 DelayQueue，一旦能从 DelayQueue 中获取元素时，表示缓存有效期到了。</description></item><item><title>锁</title><link>https://guanpj.github.io/amethyst/Knowledge/Java/%E5%B9%B6%E5%8F%91/%E9%94%81/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://guanpj.github.io/amethyst/Knowledge/Java/%E5%B9%B6%E5%8F%91/%E9%94%81/</guid><description>锁的分类 # 偏向锁/轻量级锁/重量级锁 # Java SE 1.6 为了减少获得锁和释放锁带来的性能消耗，引入了“偏向锁”和“轻量级锁”，在 Java SE 1.6 中，锁一共有 4 种状态，级别从低到高依次是：无锁状态、偏向锁状态、轻量级锁状态和重量级锁状态，这几个状态会随着竞争情况逐渐升级但不能降级。
+这些状态被记录在对象头中的 mark word 中。
+偏向锁 # 如果自始至终，对于这把锁都不存在竞争，那么其实就没必要上锁，只需要打个标记就行了，这就是偏向锁的思想。一个对象被初始化后，还没有任何线程来获取它的锁时，那么它就是可偏向的，当有第一个线程来访问它并尝试获取锁的时候，它就将这个线程记录下来，以后如果尝试获取锁的线程正是偏向锁的拥有者，就可以直接获得锁，开销很小，性能最好。
+轻量级锁 # JVM 开发者发现在很多情况下，synchronized 中的代码是被多个线程交替执行的，而不是同时执行的，也就是说并不存在实际的竞争，或者是只有短时间的锁竞争，用 CAS 就可以解决，这种情况下，用完全互斥的重量级锁是没必要的。轻量级锁是指当锁原来是偏向锁的时候，被另一个线程访问，说明存在竞争，那么偏向锁就会升级为轻量级锁，线程会通过自旋的形式尝试获取锁，而不会陷入阻塞。
+重量级锁 # 重量级锁是互斥锁，它是利用操作系统的同步机制实现的，所以开销相对比较大。当多个线程直接有实际竞争，且锁竞争时间长的时候，轻量级锁不能满足需求，锁就会膨胀为重量级锁。重量级锁会让其他申请却拿不到锁的线程进入阻塞状态。
+对比 # 可重入锁/非可重入锁 # 可重入锁指的是线程当前已经持有这把锁了，能在不释放这把锁的情况下，再次获取这把锁。同理，不可重入锁指的是虽然线程当前持有了这把锁，但是如果想再次获取这把锁，也必须要先释放锁后才能再次尝试获取。
+对于可重入锁而言，最典型的就是 ReentrantLock 了，正如它的名字一样，reentrant 的意思就是可重入，它也是 Lock 接口最主要的一个实现类。synchronized 锁也属于可重入锁。
+共享锁/独占锁（排他锁） # 共享锁指的是我们同一把锁可以被多个线程同时获得；而独占锁（排他锁）指的就是，这把锁只能同时被一个线程获得。读写锁就最好地诠释了共享锁和独占锁的理念。读写锁中的读锁，是共享锁，而写锁是独占锁。读锁可以被同时读，可以同时被多个线程持有，而写锁最多只能同时被一个线程持有。
+公平锁/非公平锁 # 概念 # 公平锁之公平的含义在于如果线程现在拿不到这把锁，那么线程就都会进入等待，开始排队，在等待队列里等待时间长的线程会优先拿到这把锁，有先来先得的意思。而非公平锁就不那么“完美”了，它会在一定情况下，忽略掉已经在排队的线程，发生插队现象。
+那么什么“一定情况下”呢？假设当前线程在请求获取锁的时候，恰巧前一个持有锁的线程释放了这把锁，那么当前申请锁的线程就可以不顾已经等待的线程而选择立刻插队。但是如果当前线程请求的时候，前一个线程并没有在那一时刻释放锁，那么当前线程还是一样会进入等待队列。
+原理 # 分析公平和非公平锁的源码，具体看下它们是怎样实现的：
+public class ReentrantLock implements Lock, java.</description></item></channel></rss>

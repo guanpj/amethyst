@@ -1,5 +1,5 @@
 # hugo server --minify --themesDir ... --baseURL=http://0.0.0.0:1313/theme/hugo-book/
-baseURL: https://amethyst.bencuan.me
+baseURL: https://guanpj.github.io/amethyst/
 
 # Book configuration
 disablePathToLower: true
@@ -12,6 +12,7 @@ markup:
       unsafe: true
   tableOfContents:
     startLevel: 1
+    endLevel: 6
 
 # Multi-lingual mode config
 # There are different options to translate files
@@ -31,8 +32,8 @@ menu:
 
 params:
 
-  name: Ben Cuan
-  title: 📓 Amethyst
+  name: guanpj
+  title: guanpj's blog
 
   # OPTIONAL: custom favicon location
   # favicon: 'location/to/favicon.png'
@@ -61,7 +62,7 @@ params:
   enableContextualBacklinks: true
 
   # whether to show a section of recent notes on the home page
-  enableRecentNotes: false
+  enableRecentNotes: true
 
   # whether to display an 'edit' button next to the last edited field
   # that links to github
@@ -71,7 +72,7 @@ params:
   enableMermaid: true
 
   # Link to your Github repo
-  GitHubLink: https://github.com/64bitpandas/amethyst
+  GitHubLink: https://github.com/guanpj/amethyst
 
   # Search (WIP)
   search:
@@ -81,7 +82,7 @@ params:
 
   # Site description and title
   description:
-    Notes, hosted by bencuan
+    Notes, hosted by guanpj
 
   
   # Footer links
